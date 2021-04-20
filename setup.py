@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="multikeygraph",
-    version="1.1",
+    version="1.2",
     author="Wes Hardaker",
     author_email="opensource@hardakers.net",
     description="Plot multiple keys on multiple graphs in a pyfsdb/FSDB file.",
