@@ -126,7 +126,7 @@ class MultiKeyGraph(object):
 
         # some of these don't look good, so we sub-select to good ones
         # markers=list(matplotlib.lines.Line2D.markers.keys())
-        markers = [',', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', '8', 's',
+        markers = ['o', 'v', '^', '<', '>', '1', '2', '3', '4', '8', 's',
                    'p', '*', 'h', 'H', '+', 'x', 'D', 'd', '|', '_', 'P', 'X',
                    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 'None', None, ' ', '']
 
