@@ -96,6 +96,9 @@ def parse_args():
     parser.add_argument("--dont-reformat-values", action="store_true",
                         help="Don't reformat labels with K/M/G/P suffixes")
 
+    parser.add_argument("--opacity", default=1.0, type=float,
+                        help="Opacity to use when plotting")
+
     parser.add_argument("input_files", type=FileType('r'),
                         nargs='+', default=sys.stdin,
                         help="File to read")
@@ -146,7 +149,8 @@ def main():
             use_dots=args.use_dots,
             line_width=args.line_width,
             yrange=args.yrange,
-            dont_reformat_values=args.dont_reformat_values)
+            dont_reformat_values=args.dont_reformat_values,
+            opacity=args.opacity)
 
 if __name__ == "__main__":
     main()

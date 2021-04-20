@@ -121,7 +121,8 @@ class MultiKeyGraph(object):
                 anonymize_name_pattern=None, legend_map={}, time_markers=[],
                 marker_size=2.0, no_legend=False, legend_outside=False,
                 column_map={}, use_dots=False, line_width=3,
-                yrange=None, dont_reformat_values=False):
+                yrange=None, dont_reformat_values=False,
+                opacity=1.0):
 
         # some of these don't look good, so we sub-select to good ones
         # markers=list(matplotlib.lines.Line2D.markers.keys())
@@ -166,11 +167,13 @@ class MultiKeyGraph(object):
                 if scatter:
                     axs[n].scatter(xdata, col_data[column][key]['y'],
                                    label=label, marker=marker,
-                                   s=marker_size, linewidth=line_width)
+                                   s=marker_size, linewidth=line_width,
+                                   alpha=opacity)
                 else:
                     axs[n].plot(xdata, col_data[column][key]['y'],
                                 label=label, marker=marker,
-                                ms=marker_size, linewidth=line_width)
+                                ms=marker_size, linewidth=line_width,
+                                alpha=opacity)
 
                 if len(col_data[column][key]['y']) > 0:
                     miny = min(miny, min(col_data[column][key]['y']))
@@ -251,7 +254,8 @@ class MultiKeyGraph(object):
               use_dots=False,
               line_width=3,
               yrange=None,
-              dont_reformat_values=False):
+              dont_reformat_values=False,
+              opacity=1.0):
 
         self.init_plt(interactive)
 
@@ -288,7 +292,8 @@ class MultiKeyGraph(object):
                            use_dots=use_dots,
                            line_width=line_width,
                            yrange=yrange,
-                           dont_reformat_values=dont_reformat_values)
+                           dont_reformat_values=dont_reformat_values,
+                           opacity=opacity)
 
         if interactive:
             plt.show()
