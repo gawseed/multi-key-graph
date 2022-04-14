@@ -122,7 +122,7 @@ class MultiKeyGraph(object):
                 marker_size=2.0, no_legend=False, legend_outside=False,
                 column_map={}, use_dots=False, line_width=3,
                 yrange=None, dont_reformat_values=False,
-                opacity=1.0):
+                opacity=1.0, no_dates=False):
 
         # some of these don't look good, so we sub-select to good ones
         # markers=list(matplotlib.lines.Line2D.markers.keys())
@@ -156,8 +156,9 @@ class MultiKeyGraph(object):
 
                 # convert the xaxis data to time data for better label printing
                 xdata = dates.epoch2num(col_data[column][key]['x'])
-                formatter = dates.DateFormatter("%Y/%m/%d\n%H:%M")
-                axs[n].xaxis.set_major_formatter(formatter)
+                if not no_dates:
+                    formatter = dates.DateFormatter("%Y/%m/%d\n%H:%M")
+                    axs[n].xaxis.set_major_formatter(formatter)
 
                 if use_dots:
                     marker = '.'
@@ -255,7 +256,8 @@ class MultiKeyGraph(object):
               line_width=3,
               yrange=None,
               dont_reformat_values=False,
-              opacity=1.0):
+              opacity=1.0,
+              no_dates=False):
 
         self.init_plt(interactive)
 
@@ -293,7 +295,7 @@ class MultiKeyGraph(object):
                            line_width=line_width,
                            yrange=yrange,
                            dont_reformat_values=dont_reformat_values,
-                           opacity=opacity)
+                           opacity=opacity, no_dates=no_dates)
 
         if interactive:
             plt.show()
