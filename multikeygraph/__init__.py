@@ -155,8 +155,10 @@ class MultiKeyGraph(object):
                     label = legend_map[label]
 
                 # convert the xaxis data to time data for better label printing
-                xdata = dates.epoch2num(col_data[column][key]['x'])
-                if not no_dates:
+                if no_dates:
+                    xdata = col_data[column][key]['x']
+                else:
+                    xdata = dates.epoch2num(col_data[column][key]['x'])
                     formatter = dates.DateFormatter("%Y/%m/%d\n%H:%M")
                     axs[n].xaxis.set_major_formatter(formatter)
 
@@ -182,10 +184,11 @@ class MultiKeyGraph(object):
 
             if time_markers:
                 for marker in time_markers:
-                    emarker = dates.epoch2num(marker)
-                    axs[n].plot([emarker, emarker],
+                    if not no_dates:
+                        marker = dates.epoch2num(marker)
+                    axs[n].plot([marker, marker],
                                 [miny, maxy],
-                                alpha=.2, color='black')
+                                alpha=.4, color='black')
 
             # if there was anything to actually plot... add the legend
             if n == 0:
