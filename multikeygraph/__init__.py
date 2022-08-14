@@ -305,5 +305,7 @@ class MultiKeyGraph(object):
         if output_file:
             plt.savefig(output_file, bbox_inches="tight", pad_inches=0)
 
-
+        plt.clf()
+        plt.cla()
+        plt.close()
 
