@@ -123,7 +123,7 @@ class MultiKeyGraph(object):
                 marker_size=2.0, no_legend=False, legend_outside=False,
                 column_map={}, use_dots=False, line_width=3,
                 yrange=None, dont_reformat_values=False,
-                opacity=1.0):
+                opacity=1.0, no_dates=False):
 
         # some of these don't look good, so we sub-select to good ones
         # markers=list(matplotlib.lines.Line2D.markers.keys())
@@ -156,9 +156,12 @@ class MultiKeyGraph(object):
                     label = legend_map[label]
 
                 # convert the xaxis data to time data for better label printing
-                xdata = [datetime.datetime.utcfromtimestamp(x) for x in col_data[column][key]['x']]
-                formatter = dates.DateFormatter("%Y/%m/%d\n%H:%M")
-                axs[n].xaxis.set_major_formatter(formatter)
+                if no_dates:
+                    xdata = col_data[column][key]['x']
+                else:
+                    xdata = [datetime.datetime.utcfromtimestamp(x) for x in col_data[column][key]['x']]
+                    formatter = dates.DateFormatter("%Y/%m/%d\n%H:%M")
+                    axs[n].xaxis.set_major_formatter(formatter)
 
                 if use_dots:
                     marker = '.'
@@ -182,10 +185,11 @@ class MultiKeyGraph(object):
 
             if time_markers:
                 for marker in time_markers:
-                    emarker = datetime.datetime.utcfromtimestamp(marker)
-                    axs[n].plot([emarker, emarker],
+                    if not no_dates:
+                        marker = datetime.datetime.utcfromtimestamp(marker)
+                    axs[n].plot([marker, marker],
                                 [miny, maxy],
-                                alpha=.2, color='black')
+                                alpha=.4, color='black')
 
             # if there was anything to actually plot... add the legend
             if n == 0:
@@ -256,7 +260,8 @@ class MultiKeyGraph(object):
               line_width=3,
               yrange=None,
               dont_reformat_values=False,
-              opacity=1.0):
+              opacity=1.0,
+              no_dates=False):
 
         self.init_plt(interactive)
 
@@ -294,12 +299,14 @@ class MultiKeyGraph(object):
                            line_width=line_width,
                            yrange=yrange,
                            dont_reformat_values=dont_reformat_values,
-                           opacity=opacity)
+                           opacity=opacity, no_dates=no_dates)
 
         if interactive:
             plt.show()
         if output_file:
             plt.savefig(output_file, bbox_inches="tight", pad_inches=0)
 
-
+        plt.clf()
+        plt.cla()
+        plt.close()
 

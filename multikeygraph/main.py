@@ -66,6 +66,9 @@ def parse_args():
     parser.add_argument("-d", "--use-dots", action="store_true",
                         help="Use dots for markers instead of symbols")
 
+    parser.add_argument("-D", "--no-dates", action="store_true",
+                        help="Don't translate X labels to dates")
+
     parser.add_argument("-a", "--anonymize-name-pattern", type=str,
                         help="A pattern with a %%d in it to anonymize legend names")
 
@@ -150,7 +153,8 @@ def main():
             line_width=args.line_width,
             yrange=args.yrange,
             dont_reformat_values=args.dont_reformat_values,
-            opacity=args.opacity)
+            opacity=args.opacity,
+            no_dates=args.no_dates)
 
 if __name__ == "__main__":
     main()
