@@ -4,6 +4,7 @@
 from pyfsdb import Fsdb
 import matplotlib
 import matplotlib.lines
+import datetime
 
 plt = None
 dates = None
@@ -155,7 +156,7 @@ class MultiKeyGraph(object):
                     label = legend_map[label]
 
                 # convert the xaxis data to time data for better label printing
-                xdata = dates.epoch2num(col_data[column][key]['x'])
+                xdata = [datetime.datetime.utcfromtimestamp(x) for x in col_data[column][key]['x']]
                 formatter = dates.DateFormatter("%Y/%m/%d\n%H:%M")
                 axs[n].xaxis.set_major_formatter(formatter)
 
@@ -181,7 +182,7 @@ class MultiKeyGraph(object):
 
             if time_markers:
                 for marker in time_markers:
-                    emarker = dates.epoch2num(marker)
+                    emarker = datetime.datetime.utcfromtimestamp(marker)
                     axs[n].plot([emarker, emarker],
                                 [miny, maxy],
                                 alpha=.2, color='black')
